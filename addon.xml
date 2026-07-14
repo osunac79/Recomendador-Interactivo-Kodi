@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="script.recomendador.cine" name="Recomendador Interactivo" version="1.5.0" provider-name="@osunac">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.script" library="main.py">
+    <provides>executable</provides>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <platform>all</platform>
+    <summary>Te ofrece un Top 5 de recomendaciones tras un breve test.</summary>
+    <description>Filtra tu biblioteca y muestra una lista con las 5 mejores opciones según tus respuestas.</description>
+    
+    <!-- AQUÍ AÑADIMOS LA REFERENCIA A LAS CAPTURAS -->
+    <assets>
+      <screenshot>resources/screenshot00077.png</screenshot>
+      <screenshot>resources/screenshot00078.png</screenshot>
+      <screenshot>resources/screenshot00079.png</screenshot>
+      <screenshot>resources/screenshot00080.png</screenshot>
+    </assets>
+    
+  </extension>
+</addon>
