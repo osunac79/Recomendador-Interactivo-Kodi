@@ -12,7 +12,7 @@ def obtener_peliculas_kodi():
         "jsonrpc": "2.0",
         "method": "VideoLibrary.GetMovies",
         "params": {
-            "properties": ["genre", "runtime", "playcount", "file", "year"]
+            "properties": ["genre", "runtime", "playcount", "file", "year", "plot"]
         },
         "id": 1
     }
@@ -25,7 +25,7 @@ def main():
     dialog.notification("Recomendador", "Preparando el cuestionario...", xbmcgui.NOTIFICATION_INFO, 3000)
 
     # --- CUESTIONARIO ---
-    # 1. GÉNEROS (Ampliado con Drama y Animación)
+    # 1. GÉNEROS
     generos = ["Ciencia ficción", "Terror", "Acción", "Comedia", "Suspense", "Fantasía", "Drama", "Animación"]
     p1 = hacer_pregunta("¿Qué género te apetece hoy?", generos)
     if p1 == -1: return
@@ -118,7 +118,20 @@ def main():
     if pelis_filtradas:
         random.shuffle(pelis_filtradas)
         top_5_pelis = pelis_filtradas[:5]
-        opciones_menu = [peli['label'] for peli in top_5_pelis]
+        
+        # --- FORMATEO DEL MENÚ (Título, Año y Sinopsis) ---
+        opciones_menu = []
+        for peli in top_5_pelis:
+            titulo = peli.get('label', 'Sin título')
+            año = peli.get('year', '????')
+            sinopsis = peli.get('plot', '').strip()
+            
+            if sinopsis:
+                sinopsis_corta = sinopsis[:117] + "..." if len(sinopsis) > 120 else sinopsis
+            else:
+                sinopsis_corta = "Sin sinopsis disponible."
+                
+            opciones_menu.append(f"{titulo} ({año}) — {sinopsis_corta}")
         
         seleccion_final = hacer_pregunta("Mis 5 recomendaciones para ti (Elige una):", opciones_menu)
         
